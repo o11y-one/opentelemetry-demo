@@ -233,7 +233,13 @@ services:
       - OTEL_RESOURCE_ATTRIBUTES=${OTEL_RESOURCE_ATTRIBUTES},service.criticality=medium
       - OTEL_SERVICE_NAME=email
     healthcheck:
-      test: ["CMD", "ruby", "-e", "require 'socket'; TCPSocket.new('localhost', ${EMAIL_PORT}).close"]
+      test:
+        [
+          "CMD",
+          "ruby",
+          "-e",
+          "require 'socket'; TCPSocket.new('localhost', ${EMAIL_PORT}).close",
+        ]
       start_period: 10s
       interval: 5s
       timeout: 5s
@@ -280,7 +286,13 @@ services:
       - FLAGD_HOST
       - FLAGD_PORT
     healthcheck:
-      test: ["CMD", "/nodejs/bin/node", "-e", "require('net').connect(${FRONTEND_PORT},require('os').hostname(),function(){process.exit(0)}).on('error',function(){process.exit(1)})"]
+      test:
+        [
+          "CMD",
+          "/nodejs/bin/node",
+          "-e",
+          "require('net').connect(${FRONTEND_PORT},require('os').hostname(),function(){process.exit(0)}).on('error',function(){process.exit(1)})",
+        ]
       start_period: 60s
       interval: 10s
       timeout: 10s
@@ -395,7 +407,15 @@ services:
       - OTEL_RESOURCE_ATTRIBUTES=${OTEL_RESOURCE_ATTRIBUTES},service.criticality=low
       - OTEL_SERVICE_NAME=image-provider
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:${IMAGE_PROVIDER_PORT}/status"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://localhost:${IMAGE_PROVIDER_PORT}/status",
+        ]
       start_period: 10s
       interval: 5s
       timeout: 5s
@@ -573,7 +593,13 @@ services:
       - OTEL_RESOURCE_ATTRIBUTES=${OTEL_RESOURCE_ATTRIBUTES},service.criticality=low
       - OTEL_SERVICE_NAME=quote
     healthcheck:
-      test: ["CMD", "php", "-r", "fsockopen('localhost', ${QUOTE_PORT}) or die('fail');"]
+      test:
+        [
+          "CMD",
+          "php",
+          "-r",
+          "fsockopen('localhost', ${QUOTE_PORT}) or die('fail');",
+        ]
       start_period: 10s
       interval: 5s
       timeout: 5s
@@ -595,7 +621,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 500M               # This is high to enable supporting the recommendationCache feature flag use case
+          memory: 500M # This is high to enable supporting the recommendationCache feature flag use case
     restart: unless-stopped
     ports:
       - "${RECOMMENDATION_PORT}"
@@ -687,11 +713,7 @@ services:
       - GOMEMLIMIT=60MiB
       - OTEL_RESOURCE_ATTRIBUTES=${OTEL_RESOURCE_ATTRIBUTES},service.criticality=low
       - OTEL_SERVICE_NAME=flagd
-    command: [
-      "start",
-      "--uri",
-      "file:./etc/flagd/demo.flagd.json"
-    ]
+    command: ["start", "--uri", "file:./etc/flagd/demo.flagd.json"]
     ports:
       - "${FLAGD_PORT}"
       - "${FLAGD_OFREP_PORT}"
@@ -759,7 +781,15 @@ services:
       - OTEL_COLLECTOR_PORT_GRPC
       - OTEL_SERVICE_NAME=telemetry-docs
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:${TELEMETRY_DOCS_PORT}/"]
+      test:
+        [
+          "CMD",
+          "wget",
+          "--quiet",
+          "--tries=1",
+          "--spider",
+          "http://localhost:${TELEMETRY_DOCS_PORT}/",
+        ]
       start_period: 10s
       interval: 5s
       timeout: 5s
