@@ -235,7 +235,7 @@ if browser_traffic_enabled:
                     await page.route('**/*', add_baggage_header)
                     await page.goto("/cart", wait_until="domcontentloaded")
                     await page.select_option('[name="currency_code"]', 'CHF')
-                    await page.wait_for_timeout(2000)  # giving the browser time to export the traces
+                    await page.wait_for_timeout(10000)  # giving the browser time to export the traces
                     logging.info("Currency changed to CHF")
                 except Exception as e:
                     logging.error(f"Error in change currency task: {str(e)}")
@@ -252,7 +252,7 @@ if browser_traffic_enabled:
                     await page.wait_for_load_state("domcontentloaded")
                     await page.click('button:has-text("Add To Cart")')
                     await page.wait_for_load_state("domcontentloaded")
-                    await page.wait_for_timeout(2000)  # giving the browser time to export the traces
+                    await page.wait_for_timeout(10000)  # giving the browser time to export the traces
                     logging.info("Product added to cart successfully")
                 except Exception as e:
                     logging.error(f"Error in add to cart task: {str(e)}")

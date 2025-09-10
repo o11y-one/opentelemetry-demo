@@ -7,12 +7,24 @@
 ## Example configuration for sending data to your own OTLP HTTP backend
 ## Note: the spanmetrics exporter must be included in the exporters array
 ## if overriding the traces pipeline.
-##
-#  exporters:
-#    otlphttp/example:
-#      endpoint: <your-endpoint-url>
-#
-#  service:
-#    pipelines:
-#      traces:
-#        exporters: [spanmetrics, otlphttp/example]
+
+exporters:
+  otlp/o11y_one:
+    endpoint: "api.o11y.one:443"
+    headers:
+      "X-O11yone-Key": "<api-key>"
+
+service:
+  pipelines:
+    traces:
+      exporters:
+        - otlp/o11y_one
+        - spanmetrics
+    metrics:
+      exporters:
+        - otlphttp/prometheus
+        - otlp/o11y_one
+    logs:
+      exporters:
+        - opensearch
+        - otlp/o11y_one
