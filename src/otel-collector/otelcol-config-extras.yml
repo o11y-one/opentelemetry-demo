@@ -39,22 +39,22 @@
 ## if overriding the traces pipeline.
 
 exporters:
-  otlp/o11y_one:
+  otlp_http/o11y_one:
     endpoint: "https://otlp-http.o11y.one"
     headers:
-      "X-O11yone-Key": "<api-key>"
+      "X-o11y-Key": ""
 
 service:
   pipelines:
     traces:
       exporters:
-        - otlp/o11y_one
+        - otlp_http/o11y_one
         - spanmetrics
     metrics:
       exporters:
-        - otlphttp/prometheus
-        - otlp/o11y_one
+        - otlp_http/prometheus
+        - otlp_http/o11y_one
     logs:
       exporters:
         - opensearch
-        - otlp/o11y_one
+        - otlp_http/o11y_one
