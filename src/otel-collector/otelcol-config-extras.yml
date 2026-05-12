@@ -1,5 +1,4 @@
-# Copyright The OpenTelemetry Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright The OpenTelemetry Authors SPDX-License-Identifier: Apache-2.0
 
 # Extras/customization layer for the OTel Collector.
 # Override this file in your fork to add exporters for your own observability backend.
