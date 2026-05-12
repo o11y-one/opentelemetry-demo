@@ -17,6 +17,7 @@ x-default-logging: &logging
   options:
     max-size: "5m"
     max-file: "2"
+    tag: "{{.Name}}"
 
 networks:
   default:
@@ -122,7 +123,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 20M
+          memory: 80M
     restart: unless-stopped
     ports:
       - "${CHECKOUT_PORT}"
@@ -531,7 +532,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 20M
+          memory: 100M
     restart: unless-stopped
     ports:
       - "${PRODUCT_CATALOG_PORT}"
@@ -539,7 +540,7 @@ services:
       - PRODUCT_CATALOG_PORT
       - FLAGD_HOST
       - FLAGD_PORT
-      - GOMEMLIMIT=16MiB
+      - GOMEMLIMIT=90MiB
       - OTEL_EXPORTER_OTLP_ENDPOINT
       - OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
       - OTEL_RESOURCE_ATTRIBUTES=${OTEL_RESOURCE_ATTRIBUTES},service.criticality=high
