@@ -34,7 +34,7 @@
 # do not delete this file
 
 ## Example configuration for sending data to your own OTLP HTTP backend
-## Note: the spanmetrics exporter must be included in the exporters array
+## Note: the span_metrics connector must be included in the exporters array
 ## if overriding the traces pipeline.
 
 exporters:
@@ -48,7 +48,7 @@ service:
     traces:
       exporters:
         - otlp_http/o11y_one
-        - spanmetrics
+        - span_metrics
     metrics:
       exporters:
         - otlp_http/prometheus
